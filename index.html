@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="no-referrer" />
+    <title>XFOOTBALL — Catálogo</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&family=DM+Mono&display=swap");
+
+      :root {
+        --bg: #0d0e10;
+        --surface: #141618;
+        --border: #2a2d33;
+        --accent: #e8f54a;
+        --text: #f0f0f0;
+        --muted: #6b7280;
+        --whatsapp: #25d366;
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: "DM Sans", sans-serif;
+        line-height: 1.5;
+        overflow-x: hidden;
+      }
+
+      /* HEADER */
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        height: 70px;
+        background: rgba(13, 14, 16, 0.9);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--border);
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        font-family: "Bebas Neue";
+        font-size: 2rem;
+        color: var(--accent);
+        text-decoration: none;
+        letter-spacing: 1px;
+      }
+      .logo span {
+        color: #fff;
+      }
+
+      .search-bar input {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 0.6rem 1rem;
+        color: #fff;
+        width: 300px;
+        outline: none;
+        transition: 0.3s;
+      }
+      .search-bar input:focus {
+        border-color: var(--accent);
+        width: 350px;
+      }
+
+      /* LAYOUT PRINCIPAL */
+      .layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        min-height: calc(100vh - 70px);
+      }
+
+      /* SIDEBAR (PC) */
+      aside {
+        border-right: 1px solid var(--border);
+        padding: 2rem 0;
+        height: calc(100vh - 70px);
+        position: sticky;
+        top: 70px;
+      }
+      .sidebar-label {
+        font-family: "DM Mono";
+        font-size: 0.7rem;
+        color: var(--muted);
+        padding: 0 1.5rem;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+      }
+
+      .cat-btn {
+        width: 100%;
+        padding: 1rem 1.5rem;
+        background: none;
+        border: none;
+        color: var(--muted);
+        text-align: left;
+        cursor: pointer;
+        transition: 0.2s;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+      .cat-btn:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .cat-btn.active {
+        color: var(--accent);
+        background: var(--surface);
+        border-left: 4px solid var(--accent);
+      }
+
+      /* CONTENIDO */
+      main {
+        padding: 2rem;
+      }
+      .section {
+        display: none;
+      }
+      .section.visible {
+        display: block;
+        animation: fadeIn 0.4s ease forwards;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .product-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 2rem;
+      }
+
+      /* TARJETAS */
+      .product-card {
+        background: var(--surface);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: 0.3s;
+      }
+      .product-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--accent);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .card-img {
+        width: 100%;
+        aspect-ratio: 1;
+        background: #000;
+        cursor: pointer;
+        position: relative;
+      }
+      .card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .photo-tag {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 0.75rem;
+        font-weight: bold;
+      }
+
+      .card-body {
+        padding: 1.2rem;
+      }
+      .card-title {
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        height: 2.6em;
+        overflow: hidden;
+        font-size: 1rem;
+        line-height: 1.3;
+      }
+
+      .btn-group {
+        display: flex;
+        gap: 0.8rem;
+      }
+      .btn-photos {
+        flex: 1;
+        padding: 10px;
+        background: transparent;
+        border: 1px solid var(--border);
+        color: #fff;
+        cursor: pointer;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+      .btn-wa {
+        flex: 1.5;
+        padding: 10px;
+        background: var(--whatsapp);
+        color: #000;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* MODAL */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        backdrop-filter: blur(15px);
+        flex-direction: column;
+        align-items: center;
+        overflow-y: auto;
+      }
+      .modal-content {
+        max-width: 800px;
+        width: 95%;
+        margin: 20px 0;
+        border-radius: 12px;
+        box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+      }
+      .close-modal {
+        position: fixed;
+        top: 20px;
+        right: 30px;
+        color: var(--accent);
+        font-size: 3.5rem;
+        cursor: pointer;
+        z-index: 1001;
+        line-height: 1;
+      }
+
+      /* RESPONSIVE (MÓVIL) */
+      @media (max-width: 850px) {
+        header {
+          padding: 0 1rem;
+        }
+        .search-bar input {
+          width: 150px;
+        }
+        .search-bar input:focus {
+          width: 180px;
+        }
+        .layout {
+          grid-template-columns: 1fr;
+        }
+        aside {
+          display: flex;
+          height: auto;
+          position: static;
+          overflow-x: auto;
+          border-right: none;
+          border-bottom: 1px solid var(--border);
+          padding: 1rem;
+          scrollbar-width: none; /* Oculta scroll en Firefox */
+        }
+        aside::-webkit-scrollbar {
+          display: none;
+        } /* Oculta scroll en Chrome/Safari */
+        .sidebar-label {
+          display: none;
+        }
+        .cat-btn {
+          border: 1px solid var(--border);
+          border-radius: 12px;
+          margin-right: 0.6rem;
+          width: auto;
+          padding: 0.6rem 1.2rem;
+          white-space: nowrap;
+        }
+        .cat-btn.active {
+          border-color: var(--accent);
+          border-left-width: 1px;
+        }
+        main {
+          padding: 1rem;
+        }
+        .product-grid {
+          grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+          gap: 1rem;
+        }
+        .card-title {
+          font-size: 0.9rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <a href="#" class="logo" onclick="location.reload()"
+        >X<span>FOOTBALL</span></a
+      >
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Buscar..." />
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside id="sidebar"></aside>
+      <main id="main">
+        <section id="search-results" class="section">
+          <div style="margin-bottom: 2rem"><h2>Resultados</h2></div>
+          <div class="product-grid" id="grid-search-results"></div>
+        </section>
+      </main>
+    </div>
+
+    <div id="photoModal" class="modal">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <div
+        id="modalGallery"
+        style="
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 60px 0;
+        "
+      ></div>
+    </div>
+
+    <script>
+      const WHATSAPP_NUM = "34640514612";
+
+      const categories = [
+        {
+          id: "selecciones",
+          label: "Selecciones",
+          products: [
+            {
+              name: "España Local 25/26",
+              photos: [
+                "https://media.discordapp.net/attachments/1501600206301429872/1501613599171281108/cea473a0.jpeg?ex=69fcb624&is=69fb64a4&hm=5ac67111174001516877eaa85f4f1033f9f37ee47faa009398b067c45be408b1&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600206301429872/1501613598177493113/0aa45996.jpeg?ex=69fcb624&is=69fb64a4&hm=5f4ba2a738ab3f9b8d30ed3c9579a5be93e032e6f1cfd1299f6c6e7960ce8634&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600206301429872/1501613597380313119/9a4d2a17.jpeg?ex=69fcb624&is=69fb64a4&hm=13db9c771cd39f3fa1e25edb8355e2faed841dd697a75529be7a7bddd5d5a8e6&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600206301429872/1501613596583661598/376c27b8.jpeg?ex=69fcb624&is=69fb64a4&hm=6c32e1c4b3bfe57492d15f0590d1df536a83cbf03098aca066394c0d4ed573b1&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600206301429872/1501613596017299557/6950e1f9.jpeg?ex=69fcb623&is=69fb64a3&hm=6d637ba707990eee3f100847ddf9c5b14663db66525c1a06bc95dd943fc27858&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600206301429872/1501613595304132608/b52bee84.jpeg?ex=69fcb623&is=69fb64a3&hm=b9b57539974f5631c7be99c3d52bd74ff2789d7c0ecd548a8ec2f4c7a245339c&=&format=webp&width=787&height=787",
+              ],
+            },
+            {
+              name: "España Visitante 25/26",
+              photos: [
+                "https://media.discordapp.net/attachments/1501600245216317480/1501615297914863766/a33f4bc6.jpeg?ex=69fcb7b9&is=69fb6639&hm=f86eacf022d03a76ef66200cf8f000abe91719454804f31ad23ebc11ee652edc&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600245216317480/1501615297164087616/bd87f5ae.jpeg?ex=69fcb7b9&is=69fb6639&hm=fc1fb8a3f29de01e8cc57bd14dfb784c85b885b446afb1fed1a4b1bfe8b9c48f&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600245216317480/1501615296329285722/676e0467.jpeg?ex=69fcb7b9&is=69fb6639&hm=50e6007c44a5b7c827581f397abb355ed3a7834e59f346f891f50a1f5163b42f&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600245216317480/1501615295578767360/37ef57e1.jpeg?ex=69fcb7b9&is=69fb6639&hm=f4a04e52347a8441b497e3dd5a9d4de32a62745b6c7ba4cc9befaccd30e40786&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600245216317480/1501615294731391006/72cb2e0c.jpeg?ex=69fcb7b8&is=69fb6638&hm=a717e7cea42167a9da689c16e52d23db6b4785c1a3ef1b8aabd0d4de6195d144&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501600245216317480/1501615293984673852/d07e1f63.jpeg?ex=69fcb7b8&is=69fb6638&hm=879a59ca803ca9fddbddf32292479efb6ff8905e3c2e69aa27b8b41308360c36&=&format=webp&width=787&height=787",
+              ],
+            },
+            {
+              name: "Argentina Local 25/26",
+              photos: [
+                "https://media.discordapp.net/attachments/1501617673975365772/1501617789700411543/1cff2d36.jpeg?ex=69fcba0b&is=69fb688b&hm=25226853b27cd20ecc2a98f5753b9f1236c77e0f99629dafc3a01c25fe7c23a8&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501617673975365772/1501617788354035732/c9c49964.jpeg?ex=69fcba0b&is=69fb688b&hm=a76c26a3016c1a342cb6b497625ce0a9a35c8b09aca0e0772e9e4de6c73fea9d&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501617673975365772/1501617787506917508/e8e3d539.jpeg?ex=69fcba0b&is=69fb688b&hm=729a51b2bd969d46072111dbce9fa26eb156d9e166ec082e80b2fa704263759d&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501617673975365772/1501617785644646472/721883ab.jpeg?ex=69fcba0a&is=69fb688a&hm=6814fdc2ca593c5d5be703c8230832e3500ba501948d290272cb91fc2aaa8eb8&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501617673975365772/1501617786458210466/8267fed7.jpeg?ex=69fcba0b&is=69fb688b&hm=632d7bab53c4c7c1742908e08ef46d886846bfcc62a4c4b965c1915b7e2c2f07&=&format=webp&width=787&height=787",
+                "https://media.discordapp.net/attachments/1501617673975365772/1501617784906453012/e1279bd1.jpeg?ex=69fcba0a&is=69fb688a&hm=a0276f54fda4e5495436e06a4feb4cb5a7aebf1f8a92a0d43cbc63cd4928b622&=&format=webp&width=787&height=787",
+              ],
+            },
+            {
+              name: "Argentina Visitante 25/26",
+              photos: [],
+            },
+            {
+              name: "Brasil Local 25/26",
+              photos: [],
+            },
+            {
+              name: "Brasil Visitante 25/26",
+              photos: [],
+            },
+            {
+              name: "Francia Local 25/26",
+              photos: [],
+            },
+            {
+              name: "Francia Visitante 25/26",
+              photos: [],
+            },
+            {
+              name: "Alemania Local 25/26",
+              photos: [],
+            },
+            {
+              name: "Alemania Visitante 25/26",
+              photos: [],
+            },
+            {
+              name: "Italia Local 25/26",
+              photos: [],
+            },
+            {
+              name: "Italia Visitante 25/26",
+              photos: [],
+            },
+            {
+              name: "Inglaterra Local 25/26",
+              photos: [],
+            },
+            {
+              name: "Inglaterra Visitante 25/26",
+              photos: [],
+            },
+          ],
+        },
+      ];
+
+      function init() {
+        categories.forEach((cat, i) => {
+          const btn = document.createElement("button");
+          btn.className = `cat-btn ${i === 0 ? "active" : ""}`;
+          btn.dataset.target = cat.id;
+          btn.innerText = cat.label; // Quitamos el strong del contador
+          btn.onclick = () => switchCat(cat.id);
+          sidebar.appendChild(btn);
+
+          const section = document.createElement("section");
+          section.className = `section ${i === 0 ? "visible" : ""}`;
+          section.id = cat.id;
+          section.innerHTML = `
+                <div style="margin-bottom:2.5rem; border-bottom: 1px solid var(--border); padding-bottom: 1rem;">
+                    <h2 style="font-family: 'Bebas Neue'; font-size: 2.5rem; letter-spacing: 1px;">${cat.label}</h2>
+                </div>
+                <div class="product-grid"></div>`;
+
+          const grid = section.querySelector(".product-grid");
+          cat.products.forEach((p) => grid.appendChild(createCard(p)));
+          document.getElementById("main").appendChild(section);
+        });
+      }
+
+      function createCard(p) {
+        const card = document.createElement("div");
+        card.className = "product-card";
+        const mainImg =
+          p.photos.length > 0
+            ? p.photos[0]
+            : "https://placehold.co/500x500/141618/6b7280?text=Proximamente";
+
+        card.innerHTML = `
+            <div class="card-img" onclick='openModal(${JSON.stringify(p.photos)})'>
+                <img src="${mainImg}" loading="lazy">
+                ${p.photos.length > 1 ? `<div class="photo-tag">📸 ${p.photos.length}</div>` : ""}
+            </div>
+            <div class="card-body">
+                <div class="card-title">${p.name}</div>
+                <div class="btn-group">
+                    <button class="btn-photos" onclick='openModal(${JSON.stringify(p.photos)})'>Ver fotos</button>
+                    <a href="https://wa.me/${WHATSAPP_NUM}?text=Me interesa: ${p.name}" target="_blank" class="btn-wa">Pedir</a>
+                </div>
+            </div>`;
+        return card;
+      }
+
+      function switchCat(id) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("visible"));
+        document
+          .querySelectorAll(".cat-btn")
+          .forEach((b) => b.classList.remove("active"));
+        document.getElementById(id).classList.add("visible");
+        document.querySelector(`[data-target="${id}"]`).classList.add("active");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      function openModal(photos) {
+        if (photos.length === 0) return;
+        const modal = document.getElementById("photoModal");
+        const gallery = document.getElementById("modalGallery");
+        gallery.innerHTML = photos
+          .map((src) => `<img src="${src}" class="modal-content">`)
+          .join("");
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeModal() {
+        document.getElementById("photoModal").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      // Buscador
+      document.getElementById("searchInput").addEventListener("input", (e) => {
+        const q = e.target.value.toLowerCase().trim();
+        const searchSection = document.getElementById("search-results");
+        const grid = document.getElementById("grid-search-results");
+        if (q.length > 0) {
+          document
+            .querySelectorAll(".section")
+            .forEach((s) => s.classList.remove("visible"));
+          document
+            .querySelectorAll(".cat-btn")
+            .forEach((b) => b.classList.remove("active"));
+          searchSection.classList.add("visible");
+          grid.innerHTML = "";
+          categories.forEach((cat) =>
+            cat.products.forEach((p) => {
+              if (p.name.toLowerCase().includes(q))
+                grid.appendChild(createCard(p));
+            }),
+          );
+        } else {
+          searchSection.classList.remove("visible");
+          switchCat(categories[0].id);
+        }
+      });
+
+      init();
+    </script>
+  </body>
+</html>
