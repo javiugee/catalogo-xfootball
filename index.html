@@ -226,6 +226,27 @@
         justify-content: center;
       }
 
+      .btn-wa {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px; /* Espacio entre el logo y el texto */
+        background: var(--whatsapp);
+        color: #000;
+        text-decoration: none;
+        padding: 10px;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.85rem;
+      }
+
+      /* Tamaño del logo de WhatsApp */
+      .btn-wa svg {
+        width: 18px;
+        height: 18px;
+        fill: currentColor; /* Hará que el logo sea negro como el texto */
+      }
+
       /* MODAL */
       .modal {
         display: none;
@@ -470,7 +491,13 @@
           products: [
             {
               name: "Real Madrid Local 25/26",
-              photos: [],
+              photos: [
+                "https://media.discordapp.net/attachments/1501661438719033506/1501661507526857006/d82670f5.jpeg?ex=69fce2c2&is=69fb9142&hm=8a27fa63d84394c7a29f6bdafc7625611a5b3998c3f54109427c87381476464b&=&format=webp&width=590&height=787",
+                "https://media.discordapp.net/attachments/1501661438719033506/1501661503722488040/47562e5e.jpeg?ex=69fce2c2&is=69fb9142&hm=9ec2a3956371b8492833ce0c6c64bf56a53fe1137c98c53672484f32cd7b2910&=&format=webp&width=590&height=787",
+                "https://media.discordapp.net/attachments/1501661438719033506/1501661506519957734/5b24967d.jpeg?ex=69fce2c2&is=69fb9142&hm=dea14f89b7031e3b79979053e550f09475c7c431525243ea30834dcb77a386d4&=&format=webp&width=590&height=787",
+                "https://media.discordapp.net/attachments/1501661438719033506/1501661505634959541/1339abd0.jpeg?ex=69fce2c2&is=69fb9142&hm=82c1ebaa028ea6878869a28482c323a17473b7f89c71f8f533d6c480e61d2c32&=&format=webp&width=590&height=787",
+                "https://media.discordapp.net/attachments/1501661438719033506/1501661504678662195/fe84443b.jpeg?ex=69fce2c2&is=69fb9142&hm=45ef251ab066c0eef185e0de4e559bcb226b93daac6bebe217eced3eab1b88b5&=&format=webp&width=590&height=787",
+              ],
             },
             {
               name: "Real Madrid Visitante 25/26",
@@ -551,7 +578,12 @@
                 <div class="card-title">${p.name}</div>
                 <div class="btn-group">
                     <button class="btn-photos" onclick='openModal(${JSON.stringify(p.photos)})'>Ver fotos</button>
-                    <a href="https://wa.me/${WHATSAPP_NUM}?text=Me interesa: ${p.name}" target="_blank" class="btn-wa">Pedir</a>
+                    <a href="https://wa.me/${WHATSAPP_NUM}?text=Me interesa: ${p.name}" target="_blank" class="btn-wa">
+                      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                      </svg>
+                      PEDIR
+                    </a>
                 </div>
             </div>`;
         return card;
