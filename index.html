@@ -280,6 +280,29 @@
         line-height: 1;
       }
 
+      .dev-banner {
+        background: #1a1c1e; /* Un gris un poco más claro que el fondo */
+        color: var(
+          --accent
+        ); /* El color verde lima/amarillo para que resalte */
+        text-align: center;
+        padding: 8px 10px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--border);
+        text-transform: uppercase;
+      }
+
+      /* Ajuste para que el menú de categorías no se solape con el nuevo banner */
+      header {
+        top: 0;
+      }
+      aside,
+      nav {
+        top: 70px; /* Si ves que al hacer scroll se descuadra, ajusta este valor */
+      }
+
       /* RESPONSIVE (MÓVIL) */
       @media (max-width: 850px) {
         header {
@@ -336,6 +359,10 @@
     </style>
   </head>
   <body>
+    <div class="dev-banner">
+      ⚠️ Catálogo en desarrollo: Estamos añadiendo nuevos productos
+      recurrentemente.
+    </div>
     <header>
       <a href="#" class="logo" onclick="location.reload()"
         >X<span>FOOTBALL</span></a
